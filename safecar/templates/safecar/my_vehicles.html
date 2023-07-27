@@ -1,0 +1,78 @@
+{% extends 'safecar/layouts/app.html' %}
+{% load static %}
+
+{%block title %} Mes véhicules{% endblock%}
+
+{% block breadcrumb%}
+  {% comment %} <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+
+    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Mes véhicules</li>
+  </ol> {% endcomment %}
+  <h6 class="font-weight-bolder text-white mb-0">Mes véhicules</h6>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid py-4">
+      
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-header pb-0">
+              <h6>Liste de mes vehicules</h6>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center justify-content-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Numero</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Modele</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Genre</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Type</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">date</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for car in cars  %}  
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2">
+                            <div>
+                              {% comment %} <img src="{% static 'safecar/assets/img/small-logos/logo-spotify.svg' %}" class="avatar avatar-sm rounded-circle me-2" alt="spotify"> {% endcomment %}
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm">{{car.plate_number}}</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0">{{car.car_model}}</p>
+                        </td>
+                        <td>
+                          <span class="text-xs font-weight-bold">{{car.gender.wording}}</span>
+                        </td>
+                        <td>
+                          <span class="text-xs font-weight-bold">{{car.type.wording}}</span>
+                        </td>
+                        <td class="align-middle text-center">
+                         {{car.create_at|date:"d/m/Y"}}
+                        </td>
+                        <td class="align-middle">
+                          <a class="btn btn-link text-secondary mb-0" href="{% url 'my_vehicle' car.id%}">
+                            voir <i class="fa fa-eye"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    {% endfor%}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+{% endblock %}
+ 

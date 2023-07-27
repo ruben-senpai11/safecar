@@ -1,0 +1,44 @@
+{% for note in notes %}
+              <div class="text-primary text-sm ms-auto">{{note.create_at|timesince}}</div>
+              <li id='{{note.id}}' class="list-group-item border-0 p-md-4 mb-2 bg-gray-100 border-radius-lg">
+                <div class="d-flex">
+                  <div class="d-flex flex-column">
+                    
+                          <div class="mb-3  d-flex row">
+                            <h6 class="text-sm row"> 
+                              <span>{{note.record.vehicle.car_model}} <span>N°: {{note.record.vehicle.plate_number}}</span></span>
+
+                            </h6> 
+                            <span class="mb-2 text-xs">{{note.record.vehicle.gender.wording}},{{note.record.vehicle.type.wording}}</span> 
+                          </div>
+                    
+                   
+                  </div>
+                  <div class="ms-auto text-end">
+                    
+                    <a class="btn btn-link text-dark px-3 mb-0" href="{% url 'vehicle' note.record.vehicle.id %}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Voir</a>
+                  </div>
+                </div>
+                <div>
+                  {% if "assurance" in note.errors %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Assurance: </span> <span class="text-danger"> invalide </span></div>
+                  {% else %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Asssurance:</span> <span class="text-success"> valide  </span></div>
+                  {% endif %}
+                  {% if "technical_visit" in note.errors %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Visite technique:</span> <span class="text-danger"> invalide</span></div>
+                  {% else %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Visite technique</span> <span class="text-success"> valide</span></div>
+                  {% endif %}
+
+                  {% if 'stealing' in note.errors %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Avis de recherche:</span> <span class="text-danger" > Oui</span></div>
+                  {% else %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Avis de recherche:</span>  <span class="text-success">Non</span></div>
+                  {% endif %}
+
+               
+                  <div class="text-xs"><span class="text-dark ms-sm-2 font-weight-bold">Adresse actuelle:  </span>{{note.message}}</div>
+                </div>
+              </li>
+{% endfor %}

@@ -1,0 +1,184 @@
+{% extends 'safecar/layouts/app.html' %}
+{% load static %}
+
+{% block title %}Propriétaire profil {%endblock%}
+
+{% block breadcrumb%}
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          
+            <li class="breadcrumb-item text-sm">
+              <a class="opacity-5 text-white" href="{% url "owners" %}">Propriétaires</a>
+            </li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Profil</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0">Profil du  propriétaire </h6>
+{% endblock %}
+{% block content %}
+    <div class="card shadow-lg mx-4 ">
+      <div class="card-body p-3">
+        <div class="row gx-4">
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img src="{{my_user.profile_img.url}}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+          </div>
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                {{my_user.owner_set.first.first_name|ljust:1 }} {{my_user.owner_set.first.last_name}} 
+              </h5>
+              <p class="mb-0 font-weight-bold text-sm">
+                {{my_user.user_group.name}}
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+            <div class="nav-wrapper position-relative end-0">
+              <ul class="nav nav-pills nav-fill p-1" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1  d-flex align-items-center justify-content-center "
+                      href="{% url 'owner_edit' my_user.owner_set.first.id %}" >
+                      <i class="fa fa-edit"></i>
+                      <span class="ms-2">Editer</span>
+                  </a>
+              </li>
+              <li class="nav-item">
+                <form>
+                  <button formmethod="post" type="submit" class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
+                       formaction="{% url 'owner_delete'  %}" >
+                       {% csrf_token %}
+                      <i class="fa fa-trash"></i>
+                      <span class="ms-2">Supprimer</span>
+                      <input type="hidden" name="id" value="{{my_user.owner_set.first.id}}">
+                  </button>
+                </form>
+              </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid ">
+      <div class="row">
+        <div class="col-md-8 pt-4">
+          <fieldset disabled >
+            <div class="card">
+              
+              <div class="card-body">
+                <p class="text-uppercase text-sm">Information personnel</p>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Nom d'utilisateur</label>
+                      <input class="form-control" type="text" value="{{my_user.username}}" placeholder="">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">email</label>
+                      <input class="form-control" type="email" value="{{my_user.email}}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Nom</label>
+                      <input class="form-control" type="text" value="{{my_user.owner_set.first.last_name }}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Prénom</label>
+                      <input class="form-control" type="text" value="{{my_user.owner_set.first.first_name }}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Date de naissance</label>
+                      <input class="form-control" type="text" value="{{my_user.owner_set.first.birth_date }}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Lieu de naissance</label> 
+                      <input class="form-control" type="text" value="{{my_user.owner_set.first.birth_place }}">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Sexe</label>
+                      <input class="form-control" type="text" value="{{my_user.owner_set.first.sex }}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Profession</label>
+                      <input class="form-control" type="text" value="{{my_user.owner_set.first.profession }}">
+                    </div>
+                  </div>
+                </div>
+                
+                
+              
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="col-md-4 pt-4">
+          <div class="card">
+
+            <div class="card-body">
+                <p class="text-uppercase text-sm">Information de contact</p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-5"><label for="example-text-input"
+                                    class="form-control-label">Téléphone</label></div>
+                            <div class="col-7 text-nowrap">{{ user.owner_set.first.phone_number}} </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-5"><label for="example-text-input"
+                                    class="form-control-label">Department</label></div>
+                            <div class="col-7">{{my_user.owner_set.first.city.department.name}} </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-5"><label for="example-text-input"
+                                    class="form-control-label">Ville</label></div>
+                            <div class="col-7">{{my_user.owner_set.first.city.name}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-5"><label for="example-text-input"
+                                    class="form-control-label">Quartier</label></div>
+                            <div class="col-7">{{my_user.owner_set.first.district.name}}</div>
+                        </div>
+                    </div>
+                    <hr class="horizontal dark">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Adresse</label>
+                            <div class="h-25">{{my_user.owner_set.first.address}}</div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    
+{% endblock%}
+
+
+    
+  

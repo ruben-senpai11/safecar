@@ -1,0 +1,284 @@
+{% extends 'safecar/layouts/app.html' %}
+{% load static %}
+{% block title %}Mon véhicule {%endblock%}
+
+{% block breadcrumb%}
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          
+            <li class="breadcrumb-item text-sm">
+              <a class="opacity-5 text-white" href="{% url "my_vehicles" %}">Mes véhicules</a>
+            </li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">véhicule</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0">véhicule</h6>
+{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-xl-3 col-sm-6 mb-4">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-uppercase font-weight-bold">Numero</p>
+                <h5 class="font-weight-bolder">
+                  {{car.plate_number}}
+                </h5>
+                
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
+                <i class="ni ni-tag text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-uppercase font-weight-bold">Type</p>
+                <h5 class="font-weight-bolder">
+                  {{car.type.wording}} 
+                </h5>
+               
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+                <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-uppercase font-weight-bold">Genre</p>
+                <h5 class="font-weight-bolder">
+                  {{car.gender.wording}}
+                </h5>
+                
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-uppercase font-weight-bold">Modele</p>
+                <h5 class="font-weight-bolder">
+                  {{car.car_model}}
+                </h5>
+                
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+                <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+  <div class="row mt-4">
+    <div class="col-lg-6 mb-lg-0 mb-4">
+      <div class="card z-index-2 h-100">
+        <div class="card-header pb-0 pt-3 bg-transparent">
+          <h6 class="text-capitalize">Plaque:  {{car.plate_number}}</h6>
+          <p class="text-sm mb-0">
+            <i class="ni ni-calendar-grid-58"></i>
+            <span class="font-weight-bold">inscrit le</span> {{car.create_at}}
+          </p>
+        </div>
+        
+      
+        <div class="card-body p-3">
+          <div class="col-md-12 ml-1">
+            <div class="row">
+              <div class="col-7" ><label for="example-text-input" class="form-control-label">Genre</label></div>
+              <div class="col-5" >{{car.gender.wording}}</div>
+            </div>
+          </div>
+          <div class="col-md-12 ml-1">
+            <div class="row">
+              <div class="col-7" ><label for="example-text-input" class="form-control-label">Type</label></div>
+              <div class="col-5" >{{car.type.wording}}</div>
+            </div>
+          </div>
+          <div class="col-md-12 ml-1">
+            <div class="row">
+              <div class="col-7" ><label for="example-text-input" class="form-control-label">Modele</label></div>
+              <div class="col-5" >{{car.car_model}}</div>
+            </div>
+          </div>
+          <div class="col-md-12 ml-1">
+            <div class="row">
+              <div class="col-7" ><label for="example-text-input" class="form-control-label">Energie</label></div>
+              <div class="col-5" >{{car.energy.wording}}</div>
+            </div>
+          </div>
+
+          <div class="col-md-12 ml-1">
+            <div class="row">
+              <div class="col-7" ><label for="example-text-input" class="form-control-label">Poids à vide</label></div>
+              <div class="col-5" >{{car.empty_weight|ljust:"2"}}kg</div>
+            </div>
+          </div>
+          <div class="col-md-12 ml-1">
+            <div class="row">
+              <div class="col-7" ><label for="example-text-input" class="form-control-label">Charge utile</label></div>
+              <div class="col-5" >{{car.pay_load|ljust:"2"}}kg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mb-lg-0 mb-4">
+      <div class="card z-index-2 h-100">
+        <div class="card-header pb-0 pt-3 bg-transparent">
+          <h6 class="text-capitalize">Information associée</h6>
+        
+        </div>
+        
+      
+        <div class="card-body p-3">
+          <div class="col-md-12 ml-1">
+            <div class="row">
+              <div class="col-3 mr-1" ><label for="example-text-input" class="form-control-label">Assurance</label></div>
+              <div class="col-8" > 
+                <small> 
+                  {{assurance.agency.designation}}, le {{assurance.done_at|date:"d/m/Y"}},  validité: {{assurance.validity}} mois 
+                </small>
+              </div>
+            </div>
+    
+          </div>
+
+          <div class="col-md-12 ml-1">
+            <div class="row">
+              <div class="col-3 mr-1 mb-2" ><label for="example-text-input" class="form-control-label">Visite technique</label></div>
+              <div class="col-8" >
+                <small>
+                 {{technical_visit.agency.designation}}, le {{technical_visit.done_at|date:"d/m/Y"}},  validité: {{technical_visit.validity}} mois 
+                </small>
+              </div>
+            </div>
+    
+          </div>
+
+          <div class="col-md-12 ml-1">
+            <div class="row">
+              <div class="col-3 mr-1 mb-2" ><label for="example-text-input" class="form-control-label">Abonnement au péage</label></div>
+              <div class="col-8" >
+                <small>
+                  {{toll.agency.designation}}, le {{toll.done_at|date:"d/m/Y"}},  validité: {{toll.validity}} mois 
+                </small>
+              </div>
+            </div>
+          </div>
+
+          
+          
+        
+          
+
+         
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>Historique de circulation</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Designation</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ville</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quartier</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"> heure</th>
+        
+                </tr>
+              </thead>
+              <tbody>
+               
+               
+                {% for record in records %}
+                <tr>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{record.uid_reader.designation}}</h6>
+                        
+                      </div>
+                    </div>
+                  </td>
+                 
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{record.uid_reader.city.name}}</p>
+                    
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{record.uid_reader.district.name}}</p>
+                    
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{record.create_at|date:"d/m/Y"}}</p>
+                    
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{record.create_at|date:"H:i:s"}}</p>
+                  </td>
+                 
+                </tr>
+                {%endfor%}
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+{% endblock %}
+ 

@@ -1,0 +1,251 @@
+{% extends 'safecar/layouts/app.html'%}
+{% load static %}
+{% load formtag %}
+{% block css%}
+    <link href="{% static 'safecar/assets/jquery.steps/css/jquery.steps.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}ajout de profile propriétaire {%endblock%}
+
+{% block breadcrumb%}
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          
+            <li class="breadcrumb-item text-sm">
+              <a class="opacity-5 text-white" href="{% url "owners" %}">Propriétaires</a>
+            </li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Ajout</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0">Ajout</h6>
+{% endblock %}
+
+{% block content %}
+<div class=" container-fluid ">
+
+
+
+<div class="main-body">
+    <div class="page-wrapper">
+
+        <div class="page-body">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Immatriculation</h5>
+                            
+                        </div>
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="wizardb">
+                                        <section>
+                                            
+                                            <form class="wizard-form  " id="verticle-wizard"
+                                                action="{% url 'owner_add'%}" method="POST"   enctype="multipart/form-data">
+                                                {%csrf_token%}
+                                                <h3> Information de connexion </h3>
+                                                <fieldset>
+                                                    <div class="form-group row mb-2">
+                                                        <div class="col-sm-12">
+                                                            <label for="username"
+                                                                class="block">Nom d'utilisateur
+                                                                *</label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{user_form.username|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{user_form.username.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-2  ">
+                                                        <div class="col-sm-12">
+                                                            <label for="profile_img"
+                                                                class="block">Photo de profil
+                                                                *</label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{user_form.profile_img|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{user_form.profile_img.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group row mb-2">
+                                                        <div class="col-sm-12">
+                                                            <label for="password"
+                                                                class="block">Mot de passe
+                                                                </label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{user_form.password|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{user_form.password.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-2">
+                                                        <div class="col-sm-12">
+                                                            <label for="confirm"
+                                                                class="block">Confirmer mot de
+                                                                passe</label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{user_form.confirm|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{user_form.confirm.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                 
+                            <h3> Information générale </h3>
+                            <fieldset class="overflow-auto ">
+                                <div class="form-group row mb-2">
+                                    <div class="col-sm-12">
+                                        <label for="last_name"
+                                            class="block">Nom
+                                            *</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        {{user_form.last_name|addclass:'form-control '}}
+                                        <span class='invalid-feedback my-0 '> {{user_form.last_name.errors|first}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <div class="col-sm-12">
+                                        <label for="first_name"
+                                            class="block">Prénom(s)
+                                            *</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        {{user_form.first_name|addclass:'form-control '}}
+                                        <span class='invalid-feedback my-0 '> {{user_form.first_name.errors|first}}</span>
+                                    </div>
+                                </div>
+                               
+                                <div class="form-group row mb-2">
+                                    <div class="col-sm-12">
+                                        <label for="birth_date"
+                                            class="block"> Date de naissance</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        {{user_form.birth_date|addclass:'form-control '}}
+                                        <span class='invalid-feedback my-0 '> {{user_form.birth_date.errors|first}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <div class="col-sm-12">
+                                        <label for="birth_place"
+                                            class="block"> Lieu de naissance</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        {{user_form.birth_place|addclass:'form-control '}}
+                                        <span class='invalid-feedback my-0 '> {{user_form.birth_place.errors|first}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <div class="col-sm-12">
+                                        <label for="profession"
+                                            class="block">Profession</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        {{user_form.profession|addclass:'form-control '}}
+                                        <span class='invalid-feedback my-0 '> {{user_form.profession.errors|first}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-12" for="sex">Sexe</label>
+                                    <div class="col-sm-12">
+                                        <select
+                                            id="sex" name="sex" 
+                                            class="form-control required">
+                                            
+                                            <option value="femme">femme</option>
+                                            <option value="homme">homme</option>
+                                        </select>
+                                        <span class='invalid-feedback my-0 '> {{user_form.sex.errors|first}}</span>
+                                    </div>
+                                </div>
+                            </fieldset>
+                           
+                            <h3> Information de contact </h3>
+                            <fieldset>
+                                <div class="form-group row mb-2">
+                                    <div class="col-sm-12">
+                                        <label for="phone_number"
+                                            class="block">Téléphone</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        {{user_form.phone_number|addclass:'form-control '}}
+                                        <span class='invalid-feedback my-0 '> {{user_form.phone_number.errors|first}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <div class="col-sm-12">
+                                        <label for="email"
+                                            class="block">Email</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        {{user_form.email|addclass:'form-control '}}
+                                        <span class='invalid-feedback my-0 '> {{user_form.email.errors|first}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-12" for="city">Ville</label>
+                                    <div class="col-sm-12">
+                                        {{user_form.city|addclass:'form-control '}}
+                                        <span class='invalid-feedback my-0 '> {{user_form.city.errors|first}}</span>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-12" for="city">Quartier</label>
+                                    <div class="col-sm-12">
+                                        {{user_form.district|addclass:'form-control '}}
+                                        <span class='invalid-feedback my-0 '> {{user_form.district.errors|first}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <div class="col-sm-12">
+                                        <label for="address"
+                                            class="block">Adresse
+                                            #</label>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        {{user_form.address|addclass:'form-control '}}
+                                        <span class='invalid-feedback my-0 '> {{user_form.address.errors|first}}</span>
+                                    </div>
+                                </div>
+                                
+                               
+                            </fieldset>
+                            
+                          
+                           
+                            
+                                            </form>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+</div>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'safecar/assets/jquery.steps/js/jquery.steps.js' %}"></script>
+    <script src="{% static 'safecar/assets/js/form-wizard.js' %}"></script>
+    <script >
+        
+    </script>
+
+{%endblock%}

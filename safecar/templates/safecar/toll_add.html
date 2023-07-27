@@ -1,0 +1,60 @@
+{% extends 'safecar/layouts/app.html' %}
+{% load static %}
+{% block content %}
+   
+    <div class="container-fluid ">
+      
+        <div class="col-md-12 pt-4">
+          <fieldset >
+            <div class="card">
+              
+              <div class="card-body">
+                <p class="text-uppercase text-sm">Enregistrer un abonnement de péage</p>
+                <div class="row">
+                  
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">numero d'immatriculation</label>
+                      <input class="form-control" type="text" value="DOSSOU">
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Date </label>
+                      <input class="form-control" type="text" value="17/02/2022">
+                    </div>
+                  </div>
+                  
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Validité(en mois)</label>
+                      <input class="form-control" type="number" value="0">
+                    </div>
+                  </div>
+                  <div class="col-md-12  ">
+                    <div class="form-group float-end ">
+                        <button type="submit" class="btn btn-lg btn-primary">Enregistrer</button>
+                    </div>
+                  </div>
+
+                  
+                
+                </div>
+                
+                
+              
+              </div>
+            </div>
+          </fieldset>
+        </div>
+       
+      
+    </div>
+    
+{% endblock%}
+
+
+    
+  

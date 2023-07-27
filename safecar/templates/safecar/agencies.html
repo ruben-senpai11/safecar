@@ -1,0 +1,88 @@
+{% extends 'safecar/layouts/app.html'%}
+{% load static %}
+
+{%block title %} Agences{% endblock%}
+
+{% block breadcrumb%}
+  {% comment %} <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+
+    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Agences</li>
+  </ol> {% endcomment %}
+  <h6 class="font-weight-bolder text-white mb-0">Agences</h6>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header d-flex pb-0">
+          <h6>Les agences</h6>
+          <div class="text-end ms-auto">
+            <a href="{% url "agency_add"  %}" class="btn btn-xs btn-primary mb-0">
+            <i class="fa fa-plus pe-2" aria-hidden="true"></i> Ajouter
+            </a>
+          </div>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center justify-content-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Chef service
+                  </th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nom service
+                  </th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">type de
+                    service</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ville</th>
+                 
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder  opacity-7 ps-2">date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+
+
+                {% for agency in agencies %}
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="{{agency.user.profile_img.url}}" class="avatar avatar-sm me-3" alt="user1">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">{{agency.head_agency}}</h6>
+                          <p class="text-xs text-secondary mb-0">{{agency.user.email}}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle ">
+                      <p class="text-sm font-weight-bold mb-0">{{agency.designation}}</p>
+                    </td>
+                    <td class="align-middle ">
+                      <span class="text-xs font-weight-bold">{{agency.user.user_group.name}}</span>
+                    </td>
+                    <td class="align-middle ">
+                      {{agency.city.name}}
+                    </td>
+                    
+                    <td class="align-middle ">
+                      {{agency.create_at|date:"d/m/Y"}}
+                    </td>
+                    <td class="align-middle">
+                      <a class="btn btn-link text-secondary mb-0" href="{% url 'get_profile' agency.user.id %}">
+                        voir <i class="fa fa-eye"></i>
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

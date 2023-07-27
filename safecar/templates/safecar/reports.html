@@ -1,0 +1,118 @@
+{% extends 'safecar/layouts/app.html' %}
+
+{% load static %}
+
+{% block title %}rapports des force de l'ordre {%endblock%}
+
+{% block breadcrumb%}
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          
+          
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Rapports</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0">Rapports</h6>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <div class="col-md-12 mt-4">
+    <div class="card">
+      <div class="card-header pb-0 px-3 d-flex">
+        <h6 class="mb-0">Les rapports de police</h6>
+        {% if user.user_group.sys_name in "police"%}
+        <div class="text-end ms-auto">
+          <a href="{% url "report_add"  %}" class="btn btn-xs btn-primary mb-0">
+          <i class="fa fa-plus pe-2" aria-hidden="true"></i> Ajouter
+          </a>
+        </div>
+        {% endif %}
+      </div>
+      <div class="card-body pt-4 p-3">
+        <ul class="list-group" id="accordionRental">
+          {% for task in tasks%}
+            <li class="list-group-item border-0 p-md-4 mb-2 bg-gray-100 border-radius-lg">
+              <div class="d-flex">
+                <div class="d-flex flex-column">
+                  
+                        <div class="mb-2  d-flex row">
+                          <h6 class="text-sm row text-nowrap "> 
+                            <span>{{task.vehicle.car_model}} <span>N°:{{task.vehicle.plate_number|rjust:"10"}} </span></span>
+
+                          </h6> 
+                          <span class="mb-2 text-xs">{{task.vehicle.gender.wording}},{{task.vehicle.type.wording|rjust:"10"}} </span>
+                        </div>
+                  
+                
+                </div>
+                {% if user.user_group.sys_name in "police"%}
+                  <form  class="ms-auto text-end">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{task.id}}">
+                    <button formaction="{% url 'report_delete'%}" formmethod="post"  type="submit" class="btn btn-link text-danger text-gradient px-3 mb-0" ><i class="far fa-trash-alt me-2"></i>effacer</button>
+                    <button formaction="{% url 'report_add'%}" formmethod="get"   type="submit" class="btn btn-link text-dark px-3 mb-0" ><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Editer</button>
+                  </form>
+                {% endif %}
+              </div>
+              <div>
+                <div class="text-xs"><span class="text-dark ms-sm-2 font-weight-bold">Motif:  </span>{{task.motif}} </div>
+                <div class="text-xs"><span class="text-dark ms-sm-2 font-weight-bold">Acteur:  </span>{{task.agency.designation}} </div>
+                <div class="text-xs"><span class="text-dark ms-sm-2 font-weight-bold">Date:  </span>{{task.done_at}} </div>
+                <hr class="horizontal dark">
+                <div class=" row">
+                  
+                  <div class="  text-uppercase text-sm col-sm-8 mt-2">Description  </div>
+                  <div class=" col-sm-4  text-end">
+                    <a class="link btn-sm btn-primary px-3 me-3 py-1 text-center hideicon" data-bs-toggle="collapse" href="#id{{task.id}}" role="button" aria-expanded="false" aria-controls="id{{task.id}}"><i class="ni ni-bold-down text-white" aria-hidden="false"></i>
+                  </a>
+                  </div>
+                
+                </div>
+              
+                <div class="collapse" id="id{{task.id}}" data-bs-parent="#accordionRental">
+                  {{task.description}}
+                </div>
+              </div>
+            </li>
+          {% endfor %} 
+          
+       
+          
+         
+        </ul>
+      </div>
+    </div>
+
+    </div>
+  
+  </div>
+</div>
+
+
+
+{% endblock %}
+{% block javascript %}
+<script >
+  var hideicon = document.querySelectorAll(".hideicon")
+  hideicon.forEach(function(value,key ,tab){
+
+    value.addEventListener("click",function(){
+       
+        var icon = value.querySelector("i")
+        if(icon.getAttribute("class")=="ni ni-bold-down text-white"){
+         icon.setAttribute("class","ni ni-bold-up text-white")
+        }else{
+         icon.setAttribute("class","ni ni-bold-down text-white")
+        }
+        hideicon.forEach(function(val,k ,t){
+          if(val!=value){ val.querySelector("i").setAttribute("class","ni ni-bold-down text-white")}
+        });
+        
+    })
+
+
+  })
+  
+
+</script>
+{%endblock%}

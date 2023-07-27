@@ -1,0 +1,106 @@
+{% extends 'safecar/layouts/app.html' %}
+
+{% load static %}
+{% block title %}Contrôle de véhicule   {%endblock%}
+
+{% block breadcrumb%}
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          
+            <li class="breadcrumb-item text-sm">
+              <a class="opacity-5 text-white" href="{% url "reader" %}">Lecteurs</a>
+            </li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Control</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0"> Contrôle de véhicule </h6>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+<div class="col-md-12 mt-4">
+        <div class="card">
+          <div class="card-header pb-0 px-3">
+            <h6 class="mb-0">Contrôle des voitures dynamique </h6>
+          </div>
+          <div class="card-body pt-4 p-2">
+            {% if record %}
+            <ul id="notice"  class="list-group" >
+              <li id='{{record.id}}' class="list-group-item border-0 p-md-4 mb-2 bg-gray-100 border-radius-lg">
+                <div class="d-flex">
+                  <div class="d-flex flex-column">
+                    
+                          <div class="mb-3  d-flex row">
+                            <h6 class="text-sm row"> 
+                              <span>{{record.vehicle.car_model}} <span>N°: {{record.vehicle.plate_number|rjust:"10"}}</span></span>
+
+                            </h6> 
+                            <span class="mb-2 text-xs">{{record.vehicle.gender.wording}},{{record.vehicle.type.wording|rjust:"10"}}</span> 
+                          </div>
+                    
+                   
+                  </div>
+                  <div class="ms-auto text-end">
+                    <a class="btn btn-link text-dark px-3 mb-0" href="{% url 'vehicle' record.vehicle.id %}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Voir</a>
+                  </div>
+                </div>
+                <div>
+                  {% if "assurance" in errors %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Assurance: </span> <span class="text-danger"> invalide </span></div>
+                  {% else %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Asssurance:</span> <span class="text-success"> valide  </span></div>
+                  {% endif %}
+                  {% if "technical_visit" in errors %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Visite technique:</span> <span class="text-danger"> invalide</span></div>
+                  {% else %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Visite technique</span> <span class="text-success"> valide</span></div>
+                  {% endif %}
+
+                  {% if 'stealing' in errors %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Avis de recherche:</span> <span class="text-danger" > Oui</span></div>
+                  {% else %}
+                    <div class="mb-2 text-xs"> <span class="text-dark font-weight-bold ms-sm-2 me-2">Avis de recherche:</span>  <span class="text-success">Non</span></div>
+                  {% endif %}
+
+               
+                  
+                </div>
+              </li>
+            
+          
+             
+             
+            </ul>
+            {% endif %}
+          
+          </div>
+        </div>
+
+      </div>
+      
+  </div></div>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+
+      setInterval(function(){
+
+        
+        var id = $("#notice li:first").attr("id")
+        
+        $.ajax({
+
+          url:"{% url 'check_reader_get' %}",
+          data:{id:id}
+        }).done(function(data){
+          $("#notice").html(data)
+        })
+      },500) 
+       
+    </script>
+
+{% endblock %}
+

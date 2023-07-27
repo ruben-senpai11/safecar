@@ -1,0 +1,89 @@
+{% extends 'safecar/layouts/app.html' %}
+{% load static %}
+{% load formtag %}
+{% block title %}edition de rapport {%endblock%}
+
+{% block breadcrumb%}
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          
+            <li class="breadcrumb-item text-sm">
+              <a class="opacity-5 text-white" href="{% url "reports" %}">Rapports</a>
+            </li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Edition</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0">Edition</h6>
+{% endblock %}
+{% block content %}
+   
+    <div class="container-fluid ">
+      
+        <div class="col-md-12 pt-4">
+          <fieldset >
+            <div class="card">
+              
+              <div class="card-body">
+                <p class="text-uppercase text-sm">{{task_name|default_if_none:'Ajouter un rapports'}}</p>
+                <form action="{{ request.path }}" method="post">
+                  {% csrf_token%}
+                <div class="row">
+                  
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">numero d'immatriculation</label>
+                      {{form.plate_number|addclass:'form-control '}}
+                      <span class='invalid-feedback my-0 '> {{form.plate_number.errors|first}}</span>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      {{form.id.as_hidden}}
+                      <label for="example-text-input" class="form-control-label">Date de disparition</label>
+                      {{form.done_at|addclass:'form-control '}}
+                      <span class='invalid-feedback my-0 '> {{form.done_at.errors|first}}</span>
+                    </div>
+                  </div>
+                  
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Motif</label>
+                      {{form.motif|addclass:'form-control '}}
+                      <span class='invalid-feedback my-0 '> {{form.motif.errors|first}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Description</label>
+                      {{form.description|addclass:'form-control '}}
+                      <span class='invalid-feedback my-0 '> {{form.description.errors|first}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-12  ">
+                    <div class="form-group float-end ">
+                        <button type="submit" class="btn btn-lg btn-primary">Enregistrer</button>
+                    </div>
+                  </div>
+
+                  
+                
+                </div>
+                </form>
+                
+                
+              
+              </div>
+            </div>
+          </fieldset>
+        </div>
+       
+    </div>
+    
+{% endblock%}
+{% block javascript %}
+  
+{% endblock  %}
+
+
+    
+  

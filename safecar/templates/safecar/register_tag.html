@@ -1,0 +1,135 @@
+{% extends 'safecar/layouts/app.html' %}
+{% load static %}
+{% load formtag %}
+
+{% block breadcrumb%}
+         
+          <h6 class="font-weight-bolder text-white mb-0">Attibution de puce RFID </h6>
+{% endblock %}
+{% block content %}
+   
+    <div class="container-fluid ">
+      
+        <div class="col-md-12 pt-4">
+          <fieldset >
+            <div class="card">
+              
+              <div class="card-body">
+                <p class="text-uppercase text-sm">Attibution de puce RFID</p>
+                <form id='tag_form' action="{{ request.path }}" method="post">
+                  {% csrf_token%}
+                <div class="row">
+                  
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">numero d'immatriculation</label>
+                      {{tag.vehicle|addclass:'form-control '}}
+                      <span class='invalid-feedback my-0 '> {{tag.vehicle.errors|first}}</span>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-12">
+                    <div class="form-group">
+                    
+                      <label for="example-text-input" class="form-control-label"> Le Lecteur </label>
+                      {{tag.reader|addclass:'form-control '}}
+                      <span class='invalid-feedback my-0 '> {{tag.reader.errors|first}}</span>
+                    </div>
+                  </div>
+                  
+
+                  <div class="col-md-12  ">
+                    <div class="form-group float-end ">
+                        <button type="submit" class="btn btn-lg btn-primary">Enregistrer</button>
+                    </div>
+                  </div>
+
+                </div>
+                </form>
+                
+                
+              
+              </div>
+            </div>
+          </fieldset>
+        </div>
+       
+    </div>
+    <div class="container mt-3">
+      
+      
+      <a id="modal_btn" type="button" role="button"   class="" data-bs-toggle="modal" data-bs-target="#myModal">
+       
+      </a>
+    </div>
+    
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header text-center">
+            <div class=" text-primary text-center">Attibution de tag RFID au <span id="car" ></span></div> 
+            
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+    
+          <!-- Modal body -->
+          <div id='modal_body' class="modal-body text-center">
+            <div class="spinner-border text-primary text-center"></div> <div class=" text-primary text-center">Veuillez patienter ...</div> 
+            
+            
+          </div>
+    
+         
+        </div>
+      </div>
+    </div>
+    
+   
+
+    
+{% endblock%}
+{% block javascript %}
+<script>
+  $("#tag_form").on("submit", function(event){
+    event.preventDefault();
+    var mytimer=null;
+    var formValues= $(this).serialize();
+
+    $.post("{{request.path}}", formValues, function(data){
+        // Display the returned data in browser
+      $("#car").html(data)
+      document.getElementById("modal_btn").click();
+      
+        var mytimer=  setInterval(function(){
+            $.get("{% url 'tag_done' %}", function(data){
+                
+                if(data){ 
+                  $("#modal_body").html('<div class=" text-success text-center"><i class="fa fa-2x fa-check-circle"></i></div> <div class=" text-success">Succes !</div> ')
+                  clearInterval(mytimer)
+                  setTimeout(function(){
+                    window.reload()
+                  },8000)
+                }
+            });
+
+        },4000)
+          
+
+     
+
+
+
+
+    });
+});
+  {% comment %}
+  document.getElementById("modal_btn").click(); {% endcomment %}
+</script>
+{% endblock  %}
+
+
+    
+  

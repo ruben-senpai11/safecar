@@ -1,0 +1,150 @@
+{% extends 'safecar/layouts/app.html' %}
+{% load static %}
+{% load formtag %}
+
+{% block title %}edition de véhicule {%endblock%}
+
+{% block breadcrumb%}
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          
+            <li class="breadcrumb-item text-sm">
+              <a class="opacity-5 text-white" href="{% url "vehicles" %}">Véhicule</a>
+            </li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Edition</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0">Edition</h6>
+{% endblock %}
+{% block content %}
+   
+    <div class="container-fluid ">
+      
+        <div class="col-md-12 pt-4">
+          <fieldset >
+            <div class="card">
+              
+              <div class="card-body">
+                <p class="text-uppercase text-sm">Editer un vehicule</p>
+                <form action="{{ request.path }}" class="row" method="post">
+                  {% csrf_token%}
+                
+
+                  {{form.id.as_hidden}}
+                    <div class=" col-lg-6">
+                      <div class="form-group row mb-2">
+                        <label class="col-sm-12" for="type">Propriétaie</label>
+                        <div class="col-sm-12">
+                            {{form.owner|addclass:'form-control '}}
+                            <span class='invalid-feedback my-0 '> {{form.owner.errors|first}}</span>
+                        </div>
+                    </div>
+                      <div class="form-group row mb-2">
+                          <label class="col-sm-12" for="type">Type</label>
+                          <div class="col-sm-12">
+                              {{form.type|addclass:'form-control '}}
+                              <span class='invalid-feedback my-0 '> {{form.type.errors|first}}</span>
+                          </div>
+                      </div>
+                      <div class="form-group row mb-2">
+                          <label class="col-sm-12" for="gender">Genre</label>
+                          <div class="col-sm-12">
+                              {{form.gender|addclass:'form-control '}}
+                              <span class='invalid-feedback my-0 '> {{form.gender.errors|first}}</span>
+                          </div>
+                      </div>
+                      <div class="form-group row mb-2">
+                          <label class="col-sm-12" for="energy">Energie</label>
+                          <div class="col-sm-12">
+                              {{form.energy|addclass:'form-control '}}
+                              <span class='invalid-feedback my-0 '> {{form.energy.errors|first}}</span>
+                          </div>
+                      </div>
+                      <div class="form-group row mb-2">
+                          <div class="col-sm-12">
+                              <label for="power"
+                                  class="block">Puissance</label>
+                          </div>
+                          <div class="col-sm-12">
+                              {{form.power|addclass:'form-control '}}
+                              <span class='invalid-feedback my-0 '> {{form.power.errors|first}}</span>
+                          </div>
+                      </div>
+                      
+                      
+                  </div>
+                  <div class=" col-lg-6">
+                      <div class="form-group row mb-2">
+                          <div class="col-sm-12">
+                              <label for="car_model"
+                                  class="block">Modèle</label>
+                          </div>
+                          <div class="col-sm-12">
+                              {{form.car_model|addclass:'form-control '}}
+                              <span class='invalid-feedback my-0 '> {{form.car_model.errors|first}}</span>
+                          </div>
+                      </div>
+                      <div class="form-group row mb-2">
+                          <div class="col-sm-12">
+                              <label for="empty_weight"
+                                  class="block">Poids à vide</label>
+                          </div>
+                          <div class="col-sm-12">
+                               {{form.empty_weight|addclass:'form-control '}}
+                               <span class='invalid-feedback my-0 '> {{form.empty_weight.errors|first}}</span>
+                          </div>
+                      </div>
+                      <div class="form-group row mb-2">
+                          <div class="col-sm-12">
+                              <label for="pay_load"
+                                  class="block">Charge utile </label>
+                                  
+                          </div>
+                          <div class="col-sm-12">
+                              {{form.pay_load|addclass:'form-control '}}
+                              <span class='invalid-feedback my-0 '> {{form.pay_load.errors|first}}</span>
+                          </div>
+                      </div>
+                      <div class="form-group row mb-2">
+                          <div class="col-sm-12">
+                              <label for="plate_number"
+                                  class="block">Numero de plaque</label>
+                          </div>
+                          <div class="col-sm-12">
+                              {{form.plate_number|addclass:'form-control '}}
+                          </div>
+                          <span class='invalid-feedback my-0 '> {{form.plate_number.errors|first}}</span>
+                      </div>
+                      <div class="form-group row mb-2">
+                        <div class="col-sm-12">
+                            <label for="plate_number"
+                                class="block">Statut du vehicule</label>
+                        </div>
+                        <div class="col-sm-12">
+                            {{form.status|addclass:'form-control '}}
+                        </div>
+                        <span class='invalid-feedback my-0 '> {{form.status.errors|first}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-12  ">
+                    <div class="form-group float-end ">
+                        <button type="submit" class="btn btn-lg btn-primary">Enregistrer</button>
+                    </div>
+                  </div>
+                </form>
+                
+                
+              
+              </div>
+            </div>
+          </fieldset>
+        </div>
+       
+    </div>
+    
+{% endblock%}
+{% block javascript %}
+  
+{% endblock  %}
+
+
+    
+  

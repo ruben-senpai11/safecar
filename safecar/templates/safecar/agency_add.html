@@ -1,0 +1,218 @@
+{% extends 'safecar/layouts/app.html'%}
+
+{% load static %}
+{% load formtag %}
+{% block css%}
+    <link href="{% static 'safecar/assets/jquery.steps/css/jquery.steps.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}Ajout d'agence {%endblock%}
+
+{% block breadcrumb%}
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          
+            <li class="breadcrumb-item text-sm">
+              <a class="opacity-5 text-white" href="{% url "agencies" %}">Agences</a>
+            </li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Ajout</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0">Ajout d'agence</h6>
+{% endblock %}
+
+{% block content %}
+<div class=" container-fluid ">
+
+
+
+<div class="main-body">
+    <div class="page-wrapper">
+
+        <div class="page-body">
+            <div class="row">
+                <div class="col-sm-12">
+
+                 
+
+                    
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Ajout d'agence</h5>
+                            
+                        </div>
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="wizardb">
+                                        <section>
+                                            <form class="wizard-form  " id="verticle-wizard"
+                                            action="{% url 'agency_add'%}" method="POST"   enctype="multipart/form-data">
+                                            {%csrf_token%}
+                                                <h3> Information de connexion </h3>
+                                                <fieldset>
+                                                    <div class="form-group row mb-2">
+                                                        <div class="col-sm-12">
+                                                            <label for="username"
+                                                                class="block">Nom d'utilisateur
+                                                                *</label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.username|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.username.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-2  ">
+                                                        <div class="col-sm-12">
+                                                            <label for="profile_img"
+                                                                class="block">Photo de profil
+                                                                *</label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.profile_img|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.profile_img.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group row mb-2">
+                                                        <div class="col-sm-12">
+                                                            <label for="password"
+                                                                class="block">Mot de passe
+                                                                </label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.password|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.password.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-2">
+                                                        <div class="col-sm-12">
+                                                            <label for="confirm"
+                                                                class="block">Confirmer mot de
+                                                                passe</label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.confirm|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.confirm.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                 
+                                                <h3> Information générale </h3>
+                                                <fieldset>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <label for="lastName"
+                                                                class="block">Designation
+                                                                *</label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.designation|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.designation.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <label for="head_agency"
+                                                                class="block"> Nom du chef service
+                                                                *</label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.head_agency|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.head_agency.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                
+                                                
+                                                  
+                                                
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-12">Type d'utilisateur</label>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.user_group|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.user_group.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                           
+                                                <h3> Information de contact </h3>
+                                                <fieldset>
+                                                    <div class="form-group row mb-2">
+                                                        <div class="col-sm-12">
+                                                            <label for="phone_number"
+                                                                class="block">Téléphone</label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.phone_number|addclass:'form-control'}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.phone_number.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-2">
+                                                        <div class="col-sm-12">
+                                                            <label for="email"
+                                                                class="block">Email</label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.email|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.email.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-sm-12" for="city">Ville</label>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.city|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.city.errors|first}}</span>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-sm-12" for="city">Quartier</label>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.district|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.district.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row mb-2">
+                                                        <div class="col-sm-12">
+                                                            <label for="address"
+                                                                class="block">Adresse
+                                                                #</label>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            {{agency_form.address|addclass:'form-control '}}
+                                                            <span class='invalid-feedback my-0 '> {{agency_form.address.errors|first}}</span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                
+                                                </fieldset>
+                           
+                            
+                           
+                            
+                                            </form>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+</div>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'safecar/assets/jquery.steps/js/jquery.steps.js' %}"></script>
+    <script src="{% static 'safecar/assets/js/form-wizard.js' %}"></script>
+{%endblock%}

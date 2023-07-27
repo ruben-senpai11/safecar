@@ -1,0 +1,100 @@
+{% extends 'safecar/layouts/app.html' %}
+{% load static %}
+{% load formtag %}
+{% block content %}
+   
+    <div class="container-fluid ">
+      
+        <div class="col-md-12 pt-4">
+          <fieldset >
+            <div class="card">
+              
+              <div class="card-body">
+                <p class="text-uppercase text-sm">Test api</p>
+                <form id='tag_form' action="{{ request.path }}" method="post">
+                  {% csrf_token%}
+
+                  
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">Résultat</div>
+                    <div id='result' class="h-25">
+                      
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Lien</label>
+                      <input id="link" class="form-control" type="text" >
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Method</label>
+                      <input id='method' class="form-control" type="text" value="">
+                    </div> 
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">data</label>
+                      <input id='data' class="form-control" type="text" value="">
+                    </div> 
+                  </div>
+                  
+
+                  <div class="col-md-12  ">
+                    <div class="form-group float-end ">
+                        <button type="submit" class="btn btn-lg btn-primary">Enregistrer</button>
+                    </div>
+                  </div>
+
+                </div>
+                </form>
+                
+                
+              
+              </div>
+            </div>
+          </fieldset>
+        </div>
+       
+    </div>
+    
+    
+   
+
+    
+{% endblock%}
+{% block javascript %}
+<script>
+  $("#tag_form").on("submit", function(event){
+    event.preventDefault();
+   
+   tab={csrfmiddlewaretoken:$("[name='csrfmiddlewaretoken']").val()}
+   var array =$("#data").val().split(",")
+   for(var i=0; i<array.length; i++){
+      tab[array[i].split(":")[0]] =array[i].split(":")[1]
+      
+   }
+  
+   
+  if($("#method").val()=="post"){
+      $.post($("#link").val(),tab, function(data){
+          $("#result").html(data)
+      });
+    }else{
+      $.get($("#link").val(),tab, function(data){
+        $("#result").html(JSON.stringify(data))
+      });
+    }
+
+      
+});
+  
+</script>
+{% endblock  %}
+
+
+    
+  
